@@ -1,0 +1,191 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+    <link rel="icon" href="{% static 'images/logo.jpg' %}" type="image/icon type">
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/6e04d39f81.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <script src="https://code.jquery.com/jquery-2.2.4.js" charset="utf-8"></script>
+    <meta name="robots" content="noindex,follow" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/basic.css' %}">
+    {% block style %}
+    {% endblock %}
+</head>
+
+<body>
+    <header class="header" id="header">
+        <section class="wrapper container" style="height: 100px;">
+            <a href="/" style="font-family: 'Noto Serif Lao', serif; color: black;" class="brand">लिबास ऑफ इंडिया</a>
+            <div class="burger" id="burger">
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+            </div>
+            <span class="overlay"></span>
+            <nav class="navbar" id="navbar">
+                <ul class="menu" id="menu">
+                    <li class="menu-item"><a href="/" class="menu-link">Home</a></li>
+                    <li class="menu-item"><a href="/about/" class="menu-link">About</a></li>
+                    <li class="menu-item menu-dropdown">
+                        <span class="menu-link" data-toggle="submenu">Men<i class="fa fa-chevron-down"></i></span>
+                        <ul class="submenu">
+                            <li class="submenu-item"><a href="/men/top/" class="submenu-link">Top Wear</a></li>
+                            <li class="submenu-item"><a href="/men/bottom/" class="submenu-link">Bottom Wear</a></li>
+                            <li class="submenu-item"><a href="/men/accessories/" class="submenu-link">Accessories</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="menu-item menu-dropdown">
+                        <span class="menu-link" data-toggle="submenu">Women<i class="fa fa-chevron-down"></i></span>
+                        <ul class="submenu">
+                            <li class="submenu-item"><a href="/women/saree/" class="submenu-link">Sarees</a></li>
+                            <li class="submenu-item"><a href="/women/top/" class="submenu-link">Top Wear</a></li>
+                            <li class="submenu-item"><a href="/women/bottom/" class="submenu-link">Bottom Wear</a></li>
+                            <li class="submenu-item"><a href="/women/accessories/" class="submenu-link">Accessories</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="menu-item"><a href="/contact/" class="menu-link">Support</a></li>
+                    <li class="menu-item"><a href="/cart/" class="menu-link" style="display: flex;">Cart <i
+                                style="font-size:15px;color: black;" class="fa">&#xf07a;</i></a></li>
+                    <li class="menu-item menu-dropdown">
+                        {% if user.is_authenticated %}
+                        <span class="menu-link" data-toggle="submenu">Akshay<i
+                                class="fa fa-chevron-down"></i></span>
+                        <ul class="submenu">
+                            <li class="submenu-item"><a href="/profile/" class="submenu-link">Profile</a></li>
+                            <li class="submenu-item"><a href="/logout/" class="submenu-link">Logout</a></li>
+                        </ul>
+                        {% else %}
+                        <a href="/login/"><span class="menu-link" data-toggle="submenu">Login</span></a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </nav>
+        </section>
+    </header>
+    {% block body %}
+    {% endblock %}
+    <footer class="padding_4x">
+        <div class="flex">
+            <section class="flex-content padding_1x">
+                <h3>Top Products</h3>
+                <a href="#">Jackets</a>
+                <a href="#">Sarees</a>
+                <a href="#">Casual</a>
+                <a href="#">Ethnic</a>
+            </section>
+            <section class="flex-content padding_1x">
+                <h3>For Men</h3>
+                <a href="#">Shirts</a>
+                <a href="#">Jackets</a>
+                <a href="#">Accessories</a>
+                <a href="#">Casual</a>
+            </section>
+            <section class="flex-content padding_1x">
+                <h3>For Women</h3>
+                <a href="#">Shirts</a>
+                <a href="#">Bags</a>
+                <a href="#">Kurtaas</a>
+                <a href="#">Pyjama</a>
+            </section>
+            <section class="flex-content padding_1x">
+                <h3>Support</h3>
+                <p>You can trust us. we always try to better,</p>
+                <fieldset class="fixed_flex">
+                    <button class="btn btn_2">Contact Us</button>
+                </fieldset>
+            </section>
+        </div>
+        <div class="flex">
+            <section class="flex-content padding_1x">
+                <p>Copyright ©2023 All rights reserved || libassofindia.com</p>
+            </section>
+            <section class="flex-content padding_1x">
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-dribbble"></i></a>
+                <a href="#"><i class="fa fa-linkedin"></i></a>
+            </section>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
+<script>
+
+    if (document.getElementById("message")) {
+        setTimeout(function () {
+            document.getElementById("message").style.display = "none";
+        }, 3000);
+    }
+    const navbarMenu = document.getElementById("navbar");
+    const burgerMenu = document.getElementById("burger");
+    const overlayMenu = document.querySelector(".overlay");
+
+    const toggleMenu = () => {
+        navbarMenu.classList.toggle("active");
+        overlayMenu.classList.toggle("active");
+    };
+    const collapseSubMenu = () => {
+        navbarMenu
+            .querySelector(".menu-dropdown.active .submenu")
+            .removeAttribute("style");
+        navbarMenu.querySelector(".menu-dropdown.active").classList.remove("active");
+    };
+
+    const toggleSubMenu = (e) => {
+        if (e.target.hasAttribute("data-toggle") && window.innerWidth <= 992) {
+            e.preventDefault();
+            const menuDropdown = e.target.parentElement;
+
+            if (menuDropdown.classList.contains("active")) {
+                collapseSubMenu();
+            } else {
+                if (navbarMenu.querySelector(".menu-dropdown.active")) {
+                    collapseSubMenu();
+                }
+
+                menuDropdown.classList.add("active");
+                const subMenu = menuDropdown.querySelector(".submenu");
+                subMenu.style.maxHeight = subMenu.scrollHeight + "px";
+            }
+        }
+    };
+
+    const resizeWindow = () => {
+        if (window.innerWidth > 992) {
+            if (navbarMenu.classList.contains("active")) {
+                toggleMenu();
+            }
+            if (navbarMenu.querySelector(".menu-dropdown.active")) {
+                collapseSubMenu();
+            }
+        }
+    };
+
+    burgerMenu.addEventListener("click", toggleMenu);
+    overlayMenu.addEventListener("click", toggleMenu);
+    navbarMenu.addEventListener("click", toggleSubMenu);
+    window.addEventListener("resize", resizeWindow);
+
+</script>
+{% block script %}
+{% endblock %}

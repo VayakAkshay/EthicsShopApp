@@ -1,0 +1,84 @@
+main{
+    margin-top: 150px;
+    margin-bottom: 20px;
+}
+main h3{
+    text-align: center;
+}
+main .container .content{
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+main .container .content .box1{
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+main .container .content .box1 i{
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+main .container .content .box2{
+    width: 20%;
+    padding: 10px;
+}
+main .container .content .box2 img{
+    width: 100%;
+}
+main .container .content .box3{
+    width: 70%;
+    padding: 20px;
+}
+main .container .checkout{
+    height: auto;
+    width: 100%;
+    padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+main .container .checkout .box{
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+main .container .checkout .box button{
+    background-color: black;
+    color: white;
+    padding: 10px;
+}
+@media screen and (max-width: 780px) {
+    main .container .content .box2{
+        width: 30%;
+    }
+    main .container .content .box3{
+        width: 60%;
+    }
+}
+@media screen and (max-width: 550px) {
+    main .container .content .box1{
+        height: 10%;
+        width: 100%;
+    }
+    main .container .content .box2{
+        width: 100%;
+    }
+    main .container .content .box3{
+        width: 100%;
+    }
+}

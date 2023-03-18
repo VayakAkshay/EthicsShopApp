@@ -1,0 +1,39 @@
+.container{
+    height: 100px;
+}
+main{
+    margin-top: 100px;
+}
+main .content{
+    height: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+main .content ul{
+    display: inline;
+}
+main .content ul li{
+    display: inline;
+}
+main .content ul li button{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 1px solid black;
+    transition-duration: 2s;
+}
+main .content ul li button:hover{
+    border: none;
+}
+main .container{
+    height: auto;
+}
+.image-css{
+    height: 400px;
+}
+.image-css img{
+    height: 400px;
+}
