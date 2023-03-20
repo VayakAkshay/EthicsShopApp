@@ -36,6 +36,8 @@ class OrderItem(models.Model):
     product_id = models.IntegerField(default=0)
     qty = models.IntegerField(default=0)
     user_id = models.IntegerField(default=0)
+    Order_date = models.DateField(default=datetime.date.today)
+    delivery_date = models.DateField(default=datetime.date.today)
     
     def __str__(self):
         return str(self.product_id) + " - " + str(self.user_id)

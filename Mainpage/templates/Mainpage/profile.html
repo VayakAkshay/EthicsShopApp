@@ -64,7 +64,6 @@
             margin-top: 20px;
             display: flex;
             flex-wrap: wrap;
-            border: 1px solid black;
             border-radius: 10px;
             flex-wrap: wrap;
         }
@@ -119,12 +118,14 @@
                 padding-left: 50px;
                 padding-right: 50px;
             }
+
             .main .myorder .order .part1 {
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 width: 100%;
             }
+
             .main .myorder .order .part2 {
                 width: 100%;
             }
@@ -158,7 +159,8 @@
                 <h5>{{user.email}}</h5>
             </div>
             <div class="editbtn">
-                <a href="/edit-profile/"><button type="button" id="main_btn" class="btn btn-primary">Edit profile</button></a>
+                <a href="/edit-profile/"><button type="button" id="main_btn" class="btn btn-primary">Edit
+                        profile</button></a>
             </div>
         </div>
     </div>
@@ -166,20 +168,47 @@
         <div class="myorder">
             <h3 style="text-align: center;">My Orders</h3>
             {% if order_datas %}
-            {% for i in order_datas %}
-            <div class="order">
-                <div class="part1">
-                    <img style="height: 100%; width: 180px;" src="/media/{{i.product_img}}" alt="">
+            <div class="accordion" id="accordionExample" style="margin-top: 30px;">
+                {% for i in order_datas %}
+                <div class="accordion-item">
+                    <div class="order">
+                        <div class="part1">
+                            <img style="height: 100%; width: 180px;" src="/media/{{i.product_img}}" alt="">
+                        </div>
+                        <div class="part2">
+                            <h5>{{i.product_name}}</h5><br>
+                            <h5>Qty. {{i.qty}}</h5><br>
+                            <h5>₹ {{i.product_price}}</h5><br>
+                        </div>
+                    </div>
+                    <h2 class="accordion-header" id="heading{{i.id}}">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapse{{i.id}}" aria-expanded="true" aria-controls="collapse{{i.id}}">
+                            Order Tracking and Cancellation
+                        </button>
+                    </h2>
+                    <div id="collapse{{i.id}}" class="accordion-collapse collapse show"
+                        aria-labelledby="heading{{i.id}}" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <input type="number" value="{{i.progress}}" id="progressbar-data" hidden>
+                            <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="{{i.progress}}"
+                                aria-valuemin="0" aria-valuemax="100" >
+                                <div class="progress-bar" id="progress-bar"></div>
+                            </div>
+                            <p>{{i.progress}}%</p>
+                            {% if i.progress < 100 %}
+                            <form action="/cancle-order/" method="post">{% csrf_token %}
+                                <input type="number" value="{{i.id}}" name="order_id" id="" hidden>
+                                <button type="submit" style="margin-top: 20px;" id="cancle-btn" class="btn btn-danger">cancle order</button>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
-                <div class="part2">
-                    <h5>{{i.product_name}}</h5><br>
-                    <h5>Qty. {{i.qty}}</h5><br>
-                    <h5>₹ {{i.product_price}}</h5><br>
-                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
             {% else %}
-            <h5>No any orders yet</h5>
+            <p>No any designs yet!!</p>
             {% endif %}
         </div>
     </div>
@@ -192,6 +221,7 @@
 </html>
 {% block script %}
 <script>
-
+    let progress_value = document.getElementById("progressbar-data").value
+    document.getElementById("progress-bar").style.width = progress_value + "%";
 </script>
 {% endblock %}

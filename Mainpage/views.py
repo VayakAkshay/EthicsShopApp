@@ -4,7 +4,8 @@ from .models import ProductData,CartItems,ContactData,OrderItem,ReviewData
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 import stripe
-
+import datetime
+from datetime import timedelta
 
 def Homepage(request):
     men_product_data = ProductData.objects.filter(product_gender = "Male").filter(product_category = "Top").all().values()
@@ -388,7 +389,7 @@ def BagAccessories(request):
 def SareePage(request):
     product_data = ProductData.objects.filter(product_gender = "Female").filter(product_category = "Saree").all().values()
     link = "/women/saree/"
-    title = "Bags for Womens"
+    title = "Sarees for Womens"
     return render(request,"Mainpage/product.html",{"product_data":product_data,"link":link,"title":title})
 
 def Product_Detail(request,id):
@@ -455,10 +456,22 @@ def ProfilePage(request):
     for i in order_data:
         mydic = {}
         product_data = ProductData.objects.filter(id = i["product_id"]).all().values()[0]
+        mydic["id"] = i["id"]
         mydic["product_img"] = product_data["product_img"]
         mydic["product_name"] = product_data["product_name"]
         mydic["qty"] = i["qty"]
         mydic["product_price"] = product_data["product_price"]
+        today_date = datetime.date.today()
+        delivery_date = i["delivery_date"]
+        day_diff = abs(today_date - delivery_date).days
+        diff = -(today_date - delivery_date).days
+        progresses = 100
+        if diff<0:
+            progresses = 100
+        else:
+            for i in range(1,diff+1):
+                progresses = progresses - 10
+        mydic["progress"] = progresses
         order_datas.append(mydic)
     return render(request,"Mainpage/profile.html",{"order_datas":order_datas})
 
@@ -499,6 +512,12 @@ def ManageReviews(request):
 
 def OrderPage(request):
     return render(request,"Mainpage/order.html")
+
+def OrderCancle(request):
+    if request.method == "POST":
+        id = request.POST.get("order_id")
+        OrderItem.objects.filter(id = id).delete()
+    return redirect("/profile/")
 
 stripe.api_key = 'sk_test_51MedHmSHJDFuPL5cnRItHVU94xOAzKltL5vuoADjGI0wZfVNRtCwU3I3eKgvtQUF0z3w2yl5IuQ5rRZcOs9m2ytj00YSZRJhjw'
 def checkout(request):
@@ -541,9 +560,13 @@ def success_page(request):
         order_item.product_id = i["product_id"]
         order_item.qty = i["qty"]
         order_item.user_id = user.id
+        today_date = datetime.date.today()
+        delivery_date = today_date + timedelta(days=10)
+        order_item.delivery_date = delivery_date
         order_item.save()
     CartItems.objects.filter(user_id = user.id).delete()
     return render(request,"Mainpage/success.html")
+
 
 def cancle_page(request):
     return render(request,"Mainpage/cancle.html")

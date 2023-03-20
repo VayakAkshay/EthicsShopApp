@@ -38,5 +38,6 @@ urlpatterns = [
     path("checkout/",views.checkout,name="checkout"),
     path('success/',views.success_page,name="success_page"),
     path('cancle/',views.cancle_page,name="cancle_page"),
+    path('cancle-order/',views.OrderCancle,name="OrderCancle"),
     path('logout/',views.Logout,name="Logout"),
 ]
