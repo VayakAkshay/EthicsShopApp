@@ -19,6 +19,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/basic.css' %}">
@@ -62,11 +63,12 @@
                         </ul>
                     </li>
                     <li class="menu-item"><a href="/contact/" class="menu-link">Support</a></li>
-                    <li class="menu-item"><a href="/cart/" class="menu-link" style="display: flex;">Cart <i
+                    <li class="menu-item"><a href="/search/" class="menu-link"><i class="fa fa-search"></i></a></li>
+                    <li class="menu-item"><a href="/cart/" class="menu-link" style="display: flex;"><i
                                 style="font-size:15px;color: black;" class="fa">&#xf07a;</i></a></li>
                     <li class="menu-item menu-dropdown">
                         {% if user.is_authenticated %}
-                        <span class="menu-link" data-toggle="submenu">Akshay<i
+                        <span class="menu-link" data-toggle="submenu">{{user.first_name}}<i
                                 class="fa fa-chevron-down"></i></span>
                         <ul class="submenu">
                             <li class="submenu-item"><a href="/profile/" class="submenu-link">Profile</a></li>
@@ -86,24 +88,24 @@
         <div class="flex">
             <section class="flex-content padding_1x">
                 <h3>Top Products</h3>
-                <a href="#">Jackets</a>
-                <a href="#">Sarees</a>
-                <a href="#">Casual</a>
-                <a href="#">Ethnic</a>
+                <a href="/men/top/Jacket/">Jackets</a>
+                <a href="/women/saree/">Sarees</a>
+                <a href="/men/top/Shirt/">Casual</a>
+                <a href="/women/top/">Ethnic</a>
             </section>
             <section class="flex-content padding_1x">
                 <h3>For Men</h3>
-                <a href="#">Shirts</a>
-                <a href="#">Jackets</a>
-                <a href="#">Accessories</a>
-                <a href="#">Casual</a>
+                <a href="/men/top/Shirt/">Shirts</a>
+                <a href="/men/top/Jacket/">Jackets</a>
+                <a href="/men/accessories/">Accessories</a>
+                <a href="/men/top/Shirt/">Casual</a>
             </section>
             <section class="flex-content padding_1x">
                 <h3>For Women</h3>
-                <a href="#">Shirts</a>
-                <a href="#">Bags</a>
-                <a href="#">Kurtaas</a>
-                <a href="#">Pyjama</a>
+                <a href="/women/top/Shirt/">Shirts</a>
+                <a href="/women/accessories/">Bags</a>
+                <a href="/women/top/Kurties/">Kurties</a>
+                <a href="/women/bottom/Pyjama/">Pyjama</a>
             </section>
             <section class="flex-content padding_1x">
                 <h3>Support</h3>

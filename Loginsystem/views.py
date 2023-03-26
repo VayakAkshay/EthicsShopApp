@@ -149,3 +149,4 @@ def new_pass(request):
             messages.warning(request,"Doesn't match password")
             return render(request,"Loginsystem/change_pass.html")
     return redirect("/")
+

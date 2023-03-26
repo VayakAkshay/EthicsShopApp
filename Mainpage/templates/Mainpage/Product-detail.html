@@ -43,15 +43,27 @@
                     <span class="down" onClick='decreaseCount(event, this)'>-</span>
                     <input type="text" value="1">
                     <span class="up" onClick='increaseCount(event, this)'>+</span>
+                </div><br><br>
+                <form action="/cart/" method="post">{% csrf_token %}
+                {% if i.product_size %}
+                <label for="">Select Size</label>
+                <div class="select">
+                    <select name="pro_size" id="format" required>
+                        {% for j in i.product_size %}
+                        <option value="{{j}}">{{j}}</option>
+                        {% endfor %}
+                    </select>
                 </div>
+                {% else %}
+                <input type="hidden" name="pro_size" value="No Size" id="">
+                {% endif %}
                 <div class="buybtn">
-                    <form action="/cart/" method="post">{% csrf_token %}
                         <input type="text" value="{{i.id}}" name="product_id" id="" hidden>
                         <input type="number" value="1" name="qtys" id="qtys" hidden>
                         <input type="text" value="{{i.product_price}}" name="amount" id="" hidden>
-                        <button type="submit">Buy Now</button>
-                    </form>
+                        <button type="submit" id="buy_btn">Buy Now</button>
                 </div>
+            </form>
             </div>
             {% endfor %}
         </div>

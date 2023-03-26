@@ -40,4 +40,5 @@ urlpatterns = [
     path('cancle/',views.cancle_page,name="cancle_page"),
     path('cancle-order/',views.OrderCancle,name="OrderCancle"),
     path('logout/',views.Logout,name="Logout"),
+    path('search/',views.SearchPage,name="SearchPage"),
 ]

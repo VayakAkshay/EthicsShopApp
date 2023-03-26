@@ -168,7 +168,7 @@
         <div class="myorder">
             <h3 style="text-align: center;">My Orders</h3>
             {% if order_datas %}
-            <div class="accordion" id="accordionExample" style="margin-top: 30px;">
+            <div class="accordion accordion-flush" id="accordionFlushExample">
                 {% for i in order_datas %}
                 <div class="accordion-item">
                     <div class="order">
@@ -179,29 +179,39 @@
                             <h5>{{i.product_name}}</h5><br>
                             <h5>Qty. {{i.qty}}</h5><br>
                             <h5>₹ {{i.product_price}}</h5><br>
+                            {% if i.product_size %}
+                            <h6>Size - <button
+                                    style="background-color: black; color: white; padding: 5px;">{{i.product_size}}</button>
+                            </h6><br>
+                            {% endif %}
+                            <h5>Order Date - {{i.Order_data}}</h5><br>
+                            <h5>Delivery Date - {{i.Delivery_date}}</h5><br>
                         </div>
                     </div>
-                    <h2 class="accordion-header" id="heading{{i.id}}">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapse{{i.id}}" aria-expanded="true" aria-controls="collapse{{i.id}}">
+                    <h2 class="accordion-header">
+                        <input type="number" value="{{i.id}}" name="" id="pro_id" hidden>
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapse{{i.id}}" value="{{i.id}}" aria-expanded="false"
+                            aria-controls="flush-collapse{{i.id}}">
                             Order Tracking and Cancellation
                         </button>
                     </h2>
-                    <div id="collapse{{i.id}}" class="accordion-collapse collapse show"
-                        aria-labelledby="heading{{i.id}}" data-bs-parent="#accordionExample">
+                    <div id="flush-collapse{{i.id}}" class="accordion-collapse collapse"
+                        data-bs-parent="#accordionFlushExample">
                         <div class="accordion-body">
-                            <input type="number" value="{{i.progress}}" id="progressbar-data" hidden>
-                            <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="{{i.progress}}"
-                                aria-valuemin="0" aria-valuemax="100" >
-                                <div class="progress-bar" id="progress-bar"></div>
+                            <input type="number" value="{{i.id}}" name="" id="pro_id{{i.id}}" hidden>
+                            <input type="number" value="{{i.progress}}" id="progressbar-data{{i.id}}" hidden>
+                            <div class="progress" role="progressbar" aria-label="Example with label"
+                                aria-valuenow="{{i.progress}}" aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar" id="progress-bar{{i.id}}"></div>
                             </div>
                             <p>{{i.progress}}%</p>
-                            {% if i.progress < 100 %}
-                            <form action="/cancle-order/" method="post">{% csrf_token %}
+                            {% if i.progress < 100 %} <form action="/cancle-order/" method="post">{% csrf_token %}
                                 <input type="number" value="{{i.id}}" name="order_id" id="" hidden>
-                                <button type="submit" style="margin-top: 20px;" id="cancle-btn" class="btn btn-danger">cancle order</button>
-                            </form>
-                            {% endif %}
+                                <button type="submit" style="margin-top: 20px;" id="cancle-btn"
+                                    class="btn btn-danger">cancle order</button>
+                                </form>
+                                {% endif %}
                         </div>
                     </div>
                 </div>
@@ -221,7 +231,11 @@
 </html>
 {% block script %}
 <script>
-    let progress_value = document.getElementById("progressbar-data").value
-    document.getElementById("progress-bar").style.width = progress_value + "%";
+    $("button").click(function () {
+        var fired_button = $(this).val();
+        console.log(fired_button);
+        console.log(document.getElementById('pro_id' + fired_button).value)
+        document.getElementById("progress-bar" + fired_button).style.width = document.getElementById("progressbar-data" + fired_button).value + "%"
+    });
 </script>
 {% endblock %}

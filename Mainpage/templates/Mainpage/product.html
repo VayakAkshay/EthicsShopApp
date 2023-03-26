@@ -55,6 +55,11 @@
                                 <form action="/cart/" method="post">{% csrf_token %}
                                     <input type="hidden" value="1" name="qtys" id="">
                                     <input type="hidden" value="{{i.id}}" name="product_id" id="">
+                                    {% if i.product_size %}
+                                    <input type="hidden" value="{{i.product_size|slice:'0:2'}}" name="pro_size" id="">
+                                    {% else %}
+                                    <input type="hidden" name="pro_size" value="No Size" id="">
+                                    {% endif %}
                                     <a href="/product-detail/{{i.id}}/" class="my-link" style="color: black;">show</a> |
                                     <button type="submit">Add to cart</button>
                                 </form>

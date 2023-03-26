@@ -393,8 +393,22 @@ def SareePage(request):
     return render(request,"Mainpage/product.html",{"product_data":product_data,"link":link,"title":title})
 
 def Product_Detail(request,id):
-    product_data = ProductData.objects.filter(id=id)
+    product_data = ProductData.objects.filter(id=id).values()
     reviews_data = ReviewData.objects.filter(product_id = id).all().values()
+    myproducts = []
+    for i in product_data:
+        mydic = {}
+        mydic["id"] = i["id"]
+        mydic["product_name"] = i["product_name"]
+        mydic["product_desc"] = i["product_desc"]
+        mydic["product_img"] = i["product_img"]
+        mydic["product_price"] = i["product_price"]
+        product_size = i["product_size"].split(" ")
+        while("" in product_size):
+            product_size.remove("")
+        mydic["product_size"] = product_size
+        myproducts.append(mydic)
+
     review_list = []
     for i in reviews_data:
         review_dic = {}
@@ -407,7 +421,7 @@ def Product_Detail(request,id):
         review_dic["reviewer_name"] = i["reviewer_name"]
         review_dic["review_text"] = i["review_desc"]
         review_list.append(review_dic)
-    return render(request,"Mainpage/product-detail.html",{"product_data":product_data,"review_list":review_list})
+    return render(request,"Mainpage/product-detail.html",{"product_data":myproducts,"review_list":review_list})
 
 def CartManager(request):
     if request.user.is_authenticated == True:
@@ -427,6 +441,7 @@ def CartManager(request):
             mydic["price"] = i["qty"] * product_data["product_price"]
             total_price += i["qty"] * product_data["product_price"]
             mydic["product_img"] = product_data["product_img"]
+            mydic["product_size"] = i["product_size"]
             datas.append(mydic)
         cart_item = CartItems()
         if request.method == "POST":
@@ -435,6 +450,8 @@ def CartManager(request):
             cart_item.product_id = product_id
             cart_item.user_id = user.id
             cart_item.qty = qtys
+            cart_item.product_size = request.POST.get("pro_size")
+            print(request.POST.get("pro_size"))
             cart_item.save()
             return redirect('/cart/')
         return render(request,"Mainpage/cart.html",{"datas":datas,"total_price":total_price,"cartlen":cartlen})
@@ -461,6 +478,9 @@ def ProfilePage(request):
         mydic["product_name"] = product_data["product_name"]
         mydic["qty"] = i["qty"]
         mydic["product_price"] = product_data["product_price"]
+        mydic["Order_data"] = i["Order_date"]
+        mydic["Delivery_date"] = i["delivery_date"]
+        mydic["product_size"] = i["product_size"]
         today_date = datetime.date.today()
         delivery_date = i["delivery_date"]
         day_diff = abs(today_date - delivery_date).days
@@ -563,13 +583,21 @@ def success_page(request):
         today_date = datetime.date.today()
         delivery_date = today_date + timedelta(days=10)
         order_item.delivery_date = delivery_date
+        order_item.product_size = i["product_size"]
         order_item.save()
     CartItems.objects.filter(user_id = user.id).delete()
     return render(request,"Mainpage/success.html")
 
-
 def cancle_page(request):
     return render(request,"Mainpage/cancle.html")
+
+def SearchPage(request):
+    product_data = None
+    if request.method == "POST":
+        search = request.POST.get("query")
+        product_data = ProductData.objects.filter(product_name__icontains = search).values().all()
+        return render(request,"Mainpage/search.html",{"product_data":product_data,"search":search})
+    return render(request,"Mainpage/search.html",{"product_data":product_data})
 
 def Logout(request):
     logout(request)

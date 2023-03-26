@@ -151,6 +151,11 @@
                 style="margin-right: 10px; font-size: 15px; padding: 10px;" class="btn btn-primary">View</button></a>
             <form action="/cart/" method="post">{% csrf_token %}
               <input type="hidden" value="1" name="qtys" id="">
+              {% if i.product_size %}
+              <input type="hidden" value="{{i.product_size|slice:'0:2'}}" name="pro_size" id="">
+              {% else %}
+              <input type="hidden" name="pro_size" value="No Size" id="">
+              {% endif %}
               <input type="hidden" value="{{i.id}}" name="product_id" id="">
               <button type="submit" class="btn btn-primary" style="font-size: 15px; padding: 10px;">Add to cart</button>
             </form>
@@ -176,6 +181,11 @@
                 style="margin-right: 10px; font-size: 15px; padding: 10px;" class="btn btn-primary">View</button></a>
             <form action="/cart/" method="post">{% csrf_token %}
               <input type="hidden" value="1" name="qtys" id="">
+              {% if i.product_size %}
+              <input type="hidden" value="{{i.product_size|slice:'0:2'}}" name="pro_size" id="">
+              {% else %}
+              <input type="hidden" name="pro_size" value="No Size" id="">
+              {% endif %}
               <input type="hidden" value="{{i.id}}" name="product_id" id="">
               <button type="submit" class="btn btn-primary" style="font-size: 15px; padding: 10px;">Add to cart</button>
             </form>
