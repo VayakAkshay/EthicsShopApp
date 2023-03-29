@@ -1,5 +1,7 @@
 from django.db import models
 import datetime
+
+
 class ProductData(models.Model):
     product_id = models.AutoField
     product_name = models.TextField(max_length=200,default="")
@@ -12,8 +14,6 @@ class ProductData(models.Model):
     product_price = models.IntegerField(default=0)
     product_size = models.TextField(max_length=100,default="")
 
-    def __str__(self):
-        return self.product_name + " - " + self.product_subcategory
     
 class CartItems(models.Model):
     cart_id = models.AutoField
@@ -21,9 +21,7 @@ class CartItems(models.Model):
     user_id = models.IntegerField(default=0)
     qty = models.IntegerField(default=0)
     product_size = models.TextField(max_length=100,default="")
-
-    def __str__(self):
-        return str(self.product_id) + " - " + str(self.user_id)
+    full_name = models.TextField(max_length=100,default="")
     
 class ContactData(models.Model):
     contact_id = models.AutoField
@@ -41,9 +39,8 @@ class OrderItem(models.Model):
     Order_date = models.DateField(default=datetime.date.today)
     delivery_date = models.DateField(default=datetime.date.today)
     product_size = models.TextField(max_length=10,default="")
+    full_name = models.TextField(max_length=100,default="")
     
-    def __str__(self):
-        return str(self.product_id) + " - " + str(self.user_id)
     
 class ReviewData(models.Model):
     review_id = models.AutoField
@@ -53,6 +50,3 @@ class ReviewData(models.Model):
     review_desc = models.TextField(max_length=5000,default="")
     date = models.DateField(default=datetime.date.today)
     review_star = models.IntegerField(default=0)
-
-    def __str__(self):
-        return str(self.review_star) + " - " + self.reviewer_name

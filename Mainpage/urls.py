@@ -41,4 +41,5 @@ urlpatterns = [
     path('cancle-order/',views.OrderCancle,name="OrderCancle"),
     path('logout/',views.Logout,name="Logout"),
     path('search/',views.SearchPage,name="SearchPage"),
+    path('terms/',views.TermsConditions,name="TermsConditions"),
 ]

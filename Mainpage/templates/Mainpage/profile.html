@@ -208,7 +208,7 @@
                             <p>{{i.progress}}%</p>
                             {% if i.progress < 100 %} <form action="/cancle-order/" method="post">{% csrf_token %}
                                 <input type="number" value="{{i.id}}" name="order_id" id="" hidden>
-                                <button type="submit" style="margin-top: 20px;" id="cancle-btn"
+                                <button type="submit" onclick="cancle_order()" style="margin-top: 20px;" id="cancle-btn"
                                     class="btn btn-danger">cancle order</button>
                                 </form>
                                 {% endif %}
@@ -237,5 +237,8 @@
         console.log(document.getElementById('pro_id' + fired_button).value)
         document.getElementById("progress-bar" + fired_button).style.width = document.getElementById("progressbar-data" + fired_button).value + "%"
     });
+    function cancle_order(){
+        alert("Are you confirmed to cancle the order");
+    }
 </script>
 {% endblock %}
