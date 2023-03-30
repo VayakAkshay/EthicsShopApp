@@ -5,10 +5,10 @@ class ProductDataAdmin(admin.ModelAdmin):
     list_display = ["product_name","product_gender","product_category","product_subcategory","product_price"]
 
 class CartItemsAdmin(admin.ModelAdmin):
-    list_display = ["user_id","full_name","product_id","qty"]
+    list_display = ["user_id","full_name","product_id","product_name","qty"]
 
 class OrderItemsAdmin(admin.ModelAdmin):
-    list_display = ["user_id","full_name","product_id","qty","Order_date","delivery_date","product_size"]
+    list_display = ["user_id","full_name","product_id","product_name","qty","Order_date","delivery_date","product_size"]
 
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ["user_id","reviewer_name","date","product_id","review_star"]

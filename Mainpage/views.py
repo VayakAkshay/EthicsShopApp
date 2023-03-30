@@ -452,6 +452,8 @@ def CartManager(request):
             cart_item.qty = qtys
             cart_item.product_size = request.POST.get("pro_size")
             cart_item.full_name = user.first_name + "  " + user.last_name
+            products_name = ProductData.objects.filter(id=product_id).values()[0]["product_name"]
+            cart_item.product_name = products_name
             cart_item.save()
             return redirect('/cart/')
         return render(request,"Mainpage/cart.html",{"datas":datas,"total_price":total_price,"cartlen":cartlen})
@@ -585,6 +587,7 @@ def success_page(request):
         order_item.delivery_date = delivery_date
         order_item.product_size = i["product_size"]
         order_item.full_name = i["full_name"]
+        order_item.product_name = i["product_name"]
         order_item.save()
     CartItems.objects.filter(user_id = user.id).delete()
     return render(request,"Mainpage/success.html")

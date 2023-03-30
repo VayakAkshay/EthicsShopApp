@@ -18,6 +18,7 @@ class ProductData(models.Model):
 class CartItems(models.Model):
     cart_id = models.AutoField
     product_id = models.IntegerField(default=0)
+    product_name = models.TextField(max_length=1000,default="")
     user_id = models.IntegerField(default=0)
     qty = models.IntegerField(default=0)
     product_size = models.TextField(max_length=100,default="")
@@ -34,6 +35,7 @@ class ContactData(models.Model):
 class OrderItem(models.Model):
     order_id = models.AutoField
     product_id = models.IntegerField(default=0)
+    product_name = models.TextField(max_length=1000,default="")
     qty = models.IntegerField(default=0)
     user_id = models.IntegerField(default=0)
     Order_date = models.DateField(default=datetime.date.today)
